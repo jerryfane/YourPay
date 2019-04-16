@@ -21,20 +21,18 @@ def dashboard(username, random_number):
 
         account_balances = account_data.get_accounts()
 
-        info = {'account_name': account_name, 'username': username, 'account_balances': account_balances}
+        info = {'account_name': account_name, 'username': username, 'account_balances': account_balances, "random_number": random_number}
         return template('./Templates/table', info)
 
     else:
-        return '''<br><center><h1>YOU NEED TO LOGIN FIRST</h1><br>
-        <h2><a href="/">Homepage</a></h2>
-        </center>'''
+        return template('./Templates/no_login')
 
 @route('/<username>/pay', method='POST')
 def add_row(username):
     payment = {}
 
     payment['date'] = request.forms.get('date')
-    payment['amount'] = int(request.forms.get('amount'))
+    payment['amount'] = float(request.forms.get('amount'))
     payment['account'] = request.forms.get('account')
     payment['comment'] = request.forms.get('comment')
 
@@ -49,6 +47,11 @@ def add_row(username):
         json.dump(account_name.toJSON(), fp)
 
     return "<h1>ROW ADDED</h1>"
+
+@route('/<username>/download/<random_number>.html')
+def download_data(username, random_number):
+    redirect('/datas/%s/%s.json/%d.html' % (username, username, random_number), 301)
+
 
 @route('/<username>/logout')
 def logout(username):

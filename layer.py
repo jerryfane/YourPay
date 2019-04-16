@@ -7,6 +7,7 @@ import manage_account
 from functions import encrypt_string
 from random import randint
 from config import account_password, account_dict
+import ssl
 
 
 @route('/')
@@ -23,7 +24,7 @@ def check_login():
     with open('password.json') as f:
         password_dict = json.load(f)
 
-    random_number = randint(0, 9)
+    random_number = randint(0, 99)
     try:
         os.remove('%s_login.txt' %username)
     except:
@@ -34,7 +35,7 @@ def check_login():
     if password_dict[username] == password:
         redirect('/%s/%d.html' % (username, random_number), 301)
     else:
-        return "<br><center><h1>FAILED TO LOG IN</h1></center>"
+        return template('./Templates/no_login')
 
 
 @route('/login/<username>')
@@ -46,9 +47,19 @@ def login(username):
 def send_static(filename):
     return static_file(filename, root='static/')
 
-@route('/datas/<filename:path>')
-def send_static(filename):
-    return static_file(filename, root='Accounts/')
+@route('/datas/<username>/<random_number>/<filename:path>')
+def send_static(username, filename, random_number):
+    #controlla se l'utente ha fatto il login
+    with open('%s_login.txt' %username) as f:
+        content = f.readlines()
+    current_number = content[0].strip()
+    print(current_number, random_number)
+    if int(random_number) == int(current_number):
+        file = static_file(filename, root='Accounts/')
+        print(file)
+        return static_file(filename, root='Accounts/')
+    else:
+        return template('./Templates/no_login')
 
 
 run(host='localhost', port=8080)

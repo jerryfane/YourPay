@@ -8,7 +8,9 @@
 </head>
 <body>
   <center><br>
-    <h1>YourPay</h1> <a href="/{{username}}/logout">Logout</a><br>
+    <h1>YourPay</h1>
+    <a href="/{{username}}/logout">Logout</a> |
+    <a href="/datas/{{username}}/{{random_number}}/{{username}}.json" download>Download Your Data</a><br>
     <h2> Le mie ultime transazioni</h2><br>
 
     <div style="overflow-x:auto;">
@@ -34,9 +36,9 @@
     </div><br>
 
     <form action="/{{username}}/pay" method="post" target="iframe">
-      <input name="date" placeholder="Quando hai fatto il pagamento? dd/mm/yyyy" type="text" size="36/">
-      <input name="amount" placeholder="Quanto hai speso?" type="text" size="14/">
-      <input name="account" placeholder="Con che conto hai pagato?" type="text" size="20/">
+      <input name="date" placeholder="Quando hai fatto il pagamento? dd/mm/yyyy" type="text" size="40/">
+      <input name="amount" placeholder="Quanto hai speso?" type="text" size="17/">
+      <input name="account" placeholder="Con che conto hai pagato?" type="text" size="25/">
       <input name="comment" placeholder="Aggiungi un commento" type="text">
       <input value="Inserisci i dati" type="submit" />
     </form><br>

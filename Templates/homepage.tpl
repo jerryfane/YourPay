@@ -9,13 +9,13 @@
 <body>
   <center><br>
     <h1>YourPay</h1><br>
-        <h1>Login:</h1>
+        <h2>Login:</h2>
         <form action="/login" method="post">
             Username: <input name="username" type="text" />
             Password: <input name="password" type="password" />
             <input type="submit" value="Login" />
         </form><br>
-        <h1>Create New Account</h1>
+        <h2>Create New Account</h2>
         <form action="/create_account" method="post">
             Username: <input name="username" type="text" />
             Password: <input name="password" type="password" />
