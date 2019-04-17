@@ -66,7 +66,7 @@ def create_account(username):
         string_name = "account_name_%s" % str(i+1)
         string_balance = "account_balance_%s" % str(i+1)
         account_name = request.forms.get(string_name)
-        account_balance = float(request.forms.get(string_balance))
+        account_balance = float(request.forms.get(string_balance).replace(',','.'))
         list.append(account_name)
         list.append(account_balance)
         name_balance_pairs_list.append(list)

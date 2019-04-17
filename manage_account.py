@@ -33,7 +33,7 @@ def add_row(username):
     payment = {}
 
     payment['date'] = request.forms.get('date')
-    payment['amount'] = float(request.forms.get('amount'))
+    payment['amount'] = float(request.forms.get('amount').replace(',', '.'))
     payment['account'] = request.forms.get('account')
     payment['comment'] = request.forms.get('comment')
 
