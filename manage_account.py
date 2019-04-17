@@ -3,6 +3,7 @@ import os
 import create_account
 from config import *
 from functions import *
+from AESCipher import AESCipher
 
 @route('/<username>/<random_number>.html')
 def dashboard(username, random_number):
@@ -15,7 +16,7 @@ def dashboard(username, random_number):
     if int(random_number) == int(current_number):
 
         #load Account from json file
-        account_data = load_account_data(username, False)
+        account_data = load_account_data(username, False, account_password_cipher[username])
         print(account_data.get_accounts())
         account_name = account_data.get_all_rows() #get rows from Account
 
@@ -36,15 +37,17 @@ def add_row(username):
     payment['account'] = request.forms.get('account')
     payment['comment'] = request.forms.get('comment')
 
-    #load Account from json file
-    account_name = load_account_data(username, False)
+    #load and decrypt Account from json file
+    account_name = load_account_data(username, False, account_password_cipher[username])
 
     #add the new row
     account_name.new_row(payment['date'], payment['amount'], payment['account'], payment['comment'], True)
 
     #save datas to json
     with open('./Accounts/%s.json' %username, 'w') as fp:
-        json.dump(account_name.toJSON(), fp)
+        encrypted_data = account_password_cipher[username].encrypt(account_name.toJSON())
+        encrypted_data = encrypted_data.decode("utf-8")
+        json.dump(encrypted_data, fp)
 
     return "<h1>ROW ADDED</h1>"
 

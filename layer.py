@@ -6,8 +6,9 @@ import create_account
 import manage_account
 from functions import encrypt_string
 from random import randint
-from config import account_password, account_dict
+from config import *
 import ssl
+from AESCipher import AESCipher
 
 
 @route('/')
@@ -20,6 +21,9 @@ def check_login():
     username = request.forms.get('username')
     password = str(request.forms.get('password'))
     password = encrypt_string(password)
+    #create an AESCipher class to encrypt and decrypt datas
+    password_cipher = AESCipher(password)
+    account_password_cipher[username] = password_cipher
     #open json with passwords
     with open('password.json') as f:
         password_dict = json.load(f)

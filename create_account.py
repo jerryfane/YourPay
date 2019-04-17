@@ -1,8 +1,9 @@
 from bottle import request, route, run, template
 from test import Account as Account
 import json
-from config import account_password, account_dict
+from config import *
 from functions import encrypt_string
+from AESCipher import AESCipher
 
 
 @route('/create_account', method='POST')
@@ -12,7 +13,9 @@ def do_account():
     password = request.forms.get('password')
     #bisogna salvare il pair username/password
     password = encrypt_string(password)
-
+    #create an AESCipher class to encrypt and decrypt datas
+    password_cipher = AESCipher(password)
+    account_password_cipher[username] = password_cipher
     #load passwords class
     with open('password.json') as f:
         account_password = json.load(f)
@@ -73,7 +76,9 @@ def create_account(username):
 
     #save json with data created for the user
     with open('./Accounts/'+username+'.json', 'w') as fp:
-        json.dump(account_dict[username].toJSON(), fp)
+        encrypted_data = account_password_cipher[username].encrypt(account_dict[username].toJSON())
+        encrypted_data = encrypted_data.decode("utf-8")
+        json.dump(encrypted_data, fp)
 
     info = {'username': username}
 
