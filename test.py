@@ -79,6 +79,12 @@ class Account:
                     total_amount += current_object['amount']
         return total_amount
 
+    def get_total_spent(self):
+        total_spent = 0
+        for i in self.datas:
+            total_spent += self.datas[i]['amount']
+        return total_spent
+
     def get_amount_by_month_year(self, month, year):
         total_amount = 0
         for i in self.datas:
@@ -88,6 +94,23 @@ class Account:
             if object_month == month and object_year == year:
                 total_amount += current_object['amount']
         return total_amount
+
+    def get_category_list(self):
+        category_list = []
+        for i in self.datas:
+            category = self.datas[i]['category']
+            if category in category_list:
+                pass
+            else:
+                category_list.append(category)
+        return category_list
+
+    def get_first_date(self):
+        if len(self.datas) == 0:
+            return ''
+        else:
+            first_date = self.datas[0]['date']
+            return first_date
 
     def get_rows(self, date):
         return self.datas[date]

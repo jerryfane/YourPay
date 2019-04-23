@@ -10,7 +10,9 @@
   <center><br>
     <h1>YourPay</h1>
     <a href="/{{username}}/logout">Logout</a> |
-    <a href="/datas/{{username}}/{{random_number}}/{{username}}.json" download>Download Your Data</a><br>
+    <a href="/{{username}}/{{random_number}}.html"> Dashboard </a> |
+    <a href="/datas/{{username}}/{{random_number}}/{{username}}.json" download>Download Your Data</a> |
+    <a href="/{{username}}/stats/{{random_number}}.html">Statistics</a><br>
     <h2> Le mie ultime transazioni</h2><br>
 
     <div style="overflow-x:auto;">

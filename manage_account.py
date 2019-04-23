@@ -17,7 +17,7 @@ def dashboard(username, random_number):
 
         #load Account from json file
         account_data = load_account_data(username, False, account_password_cipher[username])
-        print(account_data.get_accounts())
+        #print(account_data.get_accounts())
         account_name = account_data.get_all_rows() #get rows from Account
 
         account_balances = account_data.get_accounts()

@@ -4,6 +4,7 @@ import os
 from pprint import pprint
 import create_account
 import manage_account
+import stats_account
 from functions import encrypt_string
 from random import randint
 from config import *
