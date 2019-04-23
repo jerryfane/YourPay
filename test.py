@@ -116,8 +116,9 @@ class Account:
             date = datas[i]['date']
             amount = datas[i]['amount']
             account_name = datas[i]['account']
+            category = datas[i]['category']
             comment = datas[i]['comment']
-            self.new_row(date, amount, account_name, comment, change_balance)
+            self.new_row(date, amount, account_name, category, comment, change_balance)
         return ''
 
 #obj = json.loads(Jerry.toJSON())

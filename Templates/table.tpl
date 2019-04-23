@@ -14,20 +14,24 @@
     <h2> Le mie ultime transazioni</h2><br>
 
     <div style="overflow-x:auto;">
-      <table width="50%" id="table">
+      <table width="55%" id="table">
         <tbody>
           <tr>
-            <td class="tg-us36"><p>Data</p></td>
+            <td class="tg-us36"><p>ID</p></td>
+            <td><p>Data</p></td>
             <td><p>Importo</p></td>
             <td><p>Conto</p></td>
+            <td><p>Categoria</p></td>
             <td><p>Commento</p></td>
           </tr>
 
           % for element in account_name:
             <tr>
+              <td>{{element}}</td>
               <td>{{account_name[element]['date']}}</td>
               <td>{{account_name[element]['amount']}}</td>
               <td>{{account_name[element]['account']}}</td>
+              <td>{{account_name[element]['category']}}</td>
               <td>{{account_name[element]['comment']}}</td>
             </tr>
           % end
@@ -39,14 +43,19 @@
       <input name="date" placeholder="Quando hai fatto il pagamento? dd/mm/yyyy" type="text" size="40/">
       <input name="amount" placeholder="Quanto hai speso?" type="text" size="17/">
       <input name="account" placeholder="Con che conto hai pagato?" type="text" size="25/">
+      <input name="category" placeholder="Inserisci una categoria" type="text" size="20/">
       <input name="comment" placeholder="Aggiungi un commento" type="text">
       <input value="Inserisci i dati" type="submit" />
+    </form><br>
+    <form action="/{{username}}/remove_row" method="post" target="iframe">
+      <input name="row_id" placeholder="Seleziona l'ID della riga da eliminare" type="text" size="32/">
+      <input value="Elimina riga" type="submit" />
     </form><br>
     <h3><a href="javascript:window.location.reload(true)">Update Table</a></h3>
     <iframe name="iframe" width="0" height="0" tabindex="-1" class="hidden"></iframe>
     <br><br>
     <div style="overflow-x:auto;">
-     <table width=50% id="table2">
+     <table width=55% id="table2">
        <tbody>
          <tr>
            <td>
@@ -70,6 +79,12 @@
       </tbody>
      </table>
    </div>
+   <br>
+   <form action="/{{username}}/new_account" method="post" target="iframe">
+     <input name="account_name" placeholder="Nome del nuovo conto" type="text" size="21/">
+     <input name="balance" placeholder="Saldo attuale del conto" type="text" size="21/">
+     <input value="Crea nuovo conto" type="submit" />
+  </form>
   </center>
 
 </body>

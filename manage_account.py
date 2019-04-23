@@ -35,13 +35,14 @@ def add_row(username):
     payment['date'] = request.forms.get('date')
     payment['amount'] = float(request.forms.get('amount').replace(',', '.'))
     payment['account'] = request.forms.get('account')
+    payment['category'] = request.forms.get('category')
     payment['comment'] = request.forms.get('comment')
 
     #load and decrypt Account from json file
     account_name = load_account_data(username, False, account_password_cipher[username])
 
     #add the new row
-    account_name.new_row(payment['date'], payment['amount'], payment['account'], payment['comment'], True)
+    account_name.new_row(payment['date'], payment['amount'], payment['account'], payment['category'], payment['comment'], True)
 
     #save datas to json
     with open('./Accounts/%s.json' %username, 'w') as fp:
@@ -50,6 +51,46 @@ def add_row(username):
         json.dump(encrypted_data, fp)
 
     return "<h1>ROW ADDED</h1>"
+
+@route('/<username>/new_account', method='POST')
+def add_account(username):
+    create_account_name = str(request.forms.get('account_name'))
+    create_account_balance = float(request.forms.get('balance').replace(',', '.'))
+
+    create_account_list = [[create_account_name, create_account_balance]]
+
+    #load and decrypt Account from json file
+    account_name = load_account_data(username, False, account_password_cipher[username])
+
+    #create new account
+    account_name.create_account(create_account_list)
+
+    #save datas to json
+    with open('./Accounts/%s.json' %username, 'w') as fp:
+        encrypted_data = account_password_cipher[username].encrypt(account_name.toJSON())
+        encrypted_data = encrypted_data.decode("utf-8")
+        json.dump(encrypted_data, fp)
+
+    return "<h1>ACCOUNT ADDED</h1>"
+
+@route('/<username>/remove_row', method='POST')
+def remove_row(username):
+    row_id = int(request.forms.get('row_id'))
+
+    #load and decrypt Account from json file
+    account_name = load_account_data(username, False, account_password_cipher[username])
+
+    #remove row
+    account_name.remove_row(row_id)
+
+    #save datas to json
+    with open('./Accounts/%s.json' %username, 'w') as fp:
+        encrypted_data = account_password_cipher[username].encrypt(account_name.toJSON())
+        encrypted_data = encrypted_data.decode("utf-8")
+        json.dump(encrypted_data, fp)
+
+    return "<h1>ROW DELETED</h1>"
+
 
 @route('/<username>/download/<random_number>.html')
 def download_data(username, random_number):
