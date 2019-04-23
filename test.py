@@ -31,12 +31,14 @@ class Account:
             self.accounts[account_name]['balance'] = float(balance)
         self.account_number = len(self.accounts)
 
-    def new_row(self, date, amount, account_name, comment, change_balance):
+    def new_row(self, date, amount, account_name, category, comment, change_balance):
         #prendo l'id del dato da introdurre nella data odierna
         if len(self.datas) == 0:
             current_key = 0
         else:
-            current_key = len(self.datas)
+            for i in self.datas:
+                last_key = i
+            current_key = last_key + 1
 
         #inizio a introdurrre i dati
         self.datas[current_key] = {}
@@ -44,6 +46,7 @@ class Account:
         current_object['date'] = date
         current_object['amount'] = amount
         current_object['account'] = account_name
+        current_object['category'] = category
         current_object['comment'] = comment
 
         #Aggiorno il balance del conto utilizzato
@@ -67,11 +70,24 @@ class Account:
             accounts_list.append(x)
         return accounts_list
 
+    def get_amount_by_category_date(self, category, initial_date):
+        total_amount = 0
+        for i in self.datas:
+            current_object = self.datas[i]
+            if current_object['date'] == initial_date or current_object['date'] > initial_date:
+                if current_object['category'] == category:
+                    total_amount += current_object['amount']
+        return total_amount
 
-    def add_account(self):
-        account_name = input('Name of the new account: ')
-        self.accounts[account_name] = {}
-        self.accounts[account_name]['balance'] = float(input("What's the current balance of this account?"))
+    def get_amount_by_month_year(self, month, year):
+        total_amount = 0
+        for i in self.datas:
+            current_object = self.datas[i]
+            object_month = current_object['date'].split('/')[1]
+            object_year = current_object['date'].split('/')[2]
+            if object_month == month and object_year == year:
+                total_amount += current_object['amount']
+        return total_amount
 
     def get_rows(self, date):
         return self.datas[date]
@@ -79,8 +95,8 @@ class Account:
     def get_all_rows(self):
         return self.datas
 
-    def remove_row(self, date):
-        self.datas[date]
+    def remove_row(self, row_id):
+        self.datas.pop(row_id)
 
     #convert the Class to a JSON string (str type)
     def toJSON(self):
