@@ -8,6 +8,7 @@
 #                                                     #
 #######################################################
 import json
+from collections import OrderedDict
 
 class Account:
     def __init__(self, name, account_number):
@@ -116,10 +117,15 @@ class Account:
         return self.datas[date]
 
     def get_all_rows(self):
-        return self.datas
+        ordered_datas = self.reorder_datas()
+        return ordered_datas
 
     def remove_row(self, row_id):
         self.datas.pop(row_id)
+
+    def reorder_datas(self):
+        ordered_datas = dict(OrderedDict(sorted(self.datas.items(), key=lambda x: x[1]['date'])))
+        return ordered_datas
 
     #convert the Class to a JSON string (str type)
     def toJSON(self):
@@ -135,6 +141,7 @@ class Account:
         self.create_account(accounts_list)
         #readd rows
         datas = dictionary['datas']
+        datas = dict(OrderedDict(sorted(datas.items(), key=lambda x: x[1]['date'])))
         for i in datas:
             date = datas[i]['date']
             amount = datas[i]['amount']
