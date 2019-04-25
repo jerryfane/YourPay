@@ -3,7 +3,7 @@
 #                                                     #
 #  Questo programma serve a tener conto dei pagamenti #
 #  effettuatti dall'utente. Una specie di conto excel #
-#  dove l'utente potrà interagire tramite Telegram    #
+#  dove l'utente potrÃ  interagire tramite Telegram    #
 #  e tenere sempre aggiornati tutti i suoi conti.     #
 #                                                     #
 #######################################################
@@ -24,10 +24,11 @@ class Account:
             self.accounts[account_name]['balance'] = float(input("What's the current balance of this account? "))
         '''
 
-    def create_account(self, list):
-        for i in range(int(len(list))):
-            account_name = list[i][0]
-            balance = list[i][1]
+    def create_account(self, lists):
+        lists.sort()
+        for i in range(int(len(lists))):
+            account_name = lists[i][0]
+            balance = lists[i][1]
             self.accounts[account_name] = {}
             self.accounts[account_name]['balance'] = float(balance)
         self.account_number = len(self.accounts)
@@ -51,8 +52,8 @@ class Account:
         current_object['comment'] = comment
 
         #Aggiorno il balance del conto utilizzato
-        #quando l'utente usa i soldi del suo account, dovrà inserire un numero positivo
-        #che verrà sottratto dal balance attuale
+        #quando l'utente usa i soldi del suo account, dovrÃ  inserire un numero positivo
+        #che verrÃ  sottratto dal balance attuale
         if change_balance:
             self.accounts[account_name]['balance'] -= amount
         if self.accounts[account_name]['balance'] < 0:
@@ -124,7 +125,7 @@ class Account:
         self.datas.pop(row_id)
 
     def reorder_datas(self):
-        ordered_datas = dict(OrderedDict(sorted(self.datas.items(), key=lambda x: x[1]['date'])))
+        ordered_datas = OrderedDict(sorted(self.datas.items(), key=lambda x: x[1]['date']))
         return ordered_datas
 
     #convert the Class to a JSON string (str type)
@@ -137,11 +138,19 @@ class Account:
         accounts = dictionary['accounts']
         accounts_list = []
         for e, i in enumerate(accounts):
-            accounts_list.append([i, accounts[i]['balance']])
+            accounts_list.append([i, round(accounts[i]['balance'],2)])
+        accounts_list.sort()
         self.create_account(accounts_list)
         #readd rows
         datas = dictionary['datas']
-        datas = dict(OrderedDict(sorted(datas.items(), key=lambda x: x[1]['date'])))
+        #start reordering rows by date
+        for i in datas:
+            try:
+                int(datas[i]['date'][0])
+            except:
+                datas[i]['date'] = datas[i]['date'][1:]
+        datas = OrderedDict(sorted(datas.items(), key=lambda x: x[1]['date']))
+        #here I finished reordering rows
         for i in datas:
             date = datas[i]['date']
             amount = datas[i]['amount']
@@ -150,5 +159,3 @@ class Account:
             comment = datas[i]['comment']
             self.new_row(date, amount, account_name, category, comment, change_balance)
         return ''
-
-#obj = json.loads(Jerry.toJSON())
