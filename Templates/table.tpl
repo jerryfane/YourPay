@@ -42,7 +42,7 @@
     </div><br>
 
     <form action="/{{username}}/pay" method="post" target="iframe">
-      <input name="date" placeholder="Quando hai fatto il pagamento? dd/mm/yyyy" type="text" size="40/">
+      <input name="date" placeholder="Quando hai fatto il pagamento? yyyy-mm-dd" type="text" size="40/">
       <input name="amount" placeholder="Quanto hai speso?" type="text" size="17/">
       <input name="account" placeholder="Con che conto hai pagato?" type="text" size="25/">
       <input name="category" placeholder="Inserisci una categoria" type="text" size="20/">

@@ -11,6 +11,14 @@ def do_account():
     global username
     username = request.forms.get('username')
     password = request.forms.get('password')
+
+    #check if the username is already taken
+    with open('./usernames.json') as fp:
+        usernames_list = json.load(fp)
+
+    if username in usernames_list:
+        return template('./Templates/username_taken')
+
     #bisogna salvare il pair username/password
     password = encrypt_string(password)
     #create an AESCipher class to encrypt and decrypt datas
