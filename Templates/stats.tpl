@@ -16,6 +16,17 @@
     <h2> Le mie statistiche</h2><br>
 
     <div style="overflow-x:auto;">
+      <table width="55%" id="nocolor">
+        <tbody>
+          <tr>
+            <td><p>Totale Speso</p></td>
+            <td><p>{{total_spent}}</p></td>
+          </tr>
+        </tbody>
+      </table>
+    </div><br>
+
+    <div style="overflow-x:auto;">
       <table width="55%" id="table">
         <tbody>
           <tr>

@@ -84,7 +84,8 @@ class Account:
     def get_total_spent(self):
         total_spent = 0
         for i in self.datas:
-            total_spent += self.datas[i]['amount']
+            if self.datas[i]['category'] != "Giroconto" and self.datas[i]['amount'] > 0:
+                total_spent += self.datas[i]['amount']
         return total_spent
 
     def get_amount_by_month_year(self, month, year):

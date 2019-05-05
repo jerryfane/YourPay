@@ -11,6 +11,11 @@ tr:first-child{
     color: white;
 }
 
+.nocolor tr:first-child{
+	background-color: #f2f2f2;
+    color: black;
+}
+
 tr:nth-child(even) {background-color: #f2f2f2;}
 
 td {

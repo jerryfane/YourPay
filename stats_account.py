@@ -1,6 +1,7 @@
 from bottle import request, route, run, template, redirect
 from config import *
 from functions import *
+from collections import OrderedDict
 
 @route('/<username>/stats/<random_number>.html')
 def statistics(username, random_number):
@@ -23,15 +24,22 @@ def statistics(username, random_number):
         category_balance = {}
         first_date = account_data.get_first_date()
 
-        total_spent = account_data.get_total_spent()
+        total_spent = round(float(account_data.get_total_spent()),2)
 
         for category in category_list:
             category_balance[category] = {}
-            category_balance[category]['balance'] = account_data.get_amount_by_category_date(category, first_date)
-            category_balance[category]['percentage'] = str(int(category_balance[category]['balance'] / total_spent)) + '%'
+            category_balance[category]['balance'] = round(float(account_data.get_amount_by_category_date(category, first_date)),2)
+            category_balance[category]['percentage'] = str(round(float(category_balance[category]['balance'] / total_spent)*100, 2)) + '%'
+
+        category_balance_ordered = OrderedDict(sorted(category_balance.items(), key=lambda x: x[1]['balance']))
+
+        #update category list
+        category_list = []
+        for category in category_balance_ordered:
+            category_list.append(category)
 
         info = {'account_name': account_name, 'username': username, \
-         'category_list': category_list, "category_balance": category_balance, \
+         'category_list': category_list, "category_balance": category_balance_ordered, \
          "random_number": random_number, "total_spent": total_spent}
 
         return template('./Templates/stats', info)

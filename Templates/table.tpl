@@ -87,7 +87,7 @@
      <input name="balance" placeholder="Saldo attuale del conto" type="text" size="21/">
      <input value="Crea nuovo conto" type="submit" />
   </form>
-  </center>
+</center><br><br>
 
 </body>
 </html>
