@@ -4,6 +4,7 @@ from functions import *
 from collections import OrderedDict
 from Stats import Stats
 import os
+import random
 
 @route('/<username>/stats/<random_number>.html')
 def statistics(username, random_number):
@@ -52,17 +53,37 @@ def statistics(username, random_number):
         except:
             pass
 
+        try:
+            os.remove("./static/"+username+"/balance_per_day.png")
+        except:
+            pass
+        try:
+            os.remove("./static/"+username+"/balance_per_month.png")
+        except:
+            pass
+        try:
+            os.remove("./static/"+username+"/amount_spent_per_day.png")
+        except:
+            pass
+        try:
+            os.remove("./static/"+username+"/amount_spent_per_month.png")
+        except:
+            pass
+
+
+
         balance_per_day.savefig("./static/"+username+"/balance_per_day.png")
         balance_per_month.savefig("./static/"+username+"/balance_per_month.png")
         amount_spent_per_day.savefig("./static/"+username+"/amount_spent_per_day.png")
-        amount_spent_per_month.savefig("./static/"+username+"/amount_spent_per_month")
+        amount_spent_per_month.savefig("./static/"+username+"/amount_spent_per_month.png")
 
         accounts_list = account_data.get_accounts_list()
         category_list = account_data.get_category_list()
         print(category_list)
 
+        random_integer = random.randint(0, 9999)
         info = {'username': username, "random_number": random_number, "accounts_list": accounts_list, \
-                "category_list": category_list}
+                "category_list": category_list, "random_integer": random_integer}
 
         return template('./Templates/stats2', info)
 
@@ -83,8 +104,14 @@ def category(username):
     elif chart == 'Amount spent per month':
         chart_file = account_stats.chart_amount_spent_permonth_category(category)
 
+    try:
+        os.remove("./static/"+username+"/created_chart.png")
+    except:
+        pass
+
+    random_integer = random.randint(0, 9999)
     chart_file.savefig("./static/"+username+"/created_chart.png")
-    info = {'username': username}
+    info = {'username': username, "random_integer": random_integer}
     return template('./Templates/created_chart', info)
 
 @route('/<username>/account', method='POST')
@@ -104,8 +131,14 @@ def account(username):
     elif chart == 'Amount spent per month':
         chart_file = account_stats.chart_amount_spent_permonth_account(account)
 
+    try:
+        os.remove("./static/"+username+"/created_chart.png")
+    except:
+        pass
+
+    random_integer = random.randint(0, 9999)
     chart_file.savefig("./static/"+username+"/created_chart.png")
-    info = {'username': username}
+    info = {'username': username, "random_integer": random_integer}
     return template('./Templates/created_chart', info)
 
 @route('/nochart')

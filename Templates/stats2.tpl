@@ -60,16 +60,16 @@
 
     <h2>More Charts</h2><br>
     <h3>Total balance per day</h3><br>
-    <img src="/static/{{username}}/balance_per_day.png" style='height: 100%; width: 55%' /><br>
+    <img src="/static/{{username}}/balance_per_day.png?{{random_integer}}" style='height: 100%; width: 55%' /><br>
 
     <h3>Total balance per month</h3><br>
-    <img src="/static/{{username}}/balance_per_month.png" style='height: 100%; width: 55%' /><br>
+    <img src="/static/{{username}}/balance_per_month.png?{{random_integer}}" style='height: 100%; width: 55%' /><br>
 
     <h3>Total amount spent per day</h3><br>
-    <img src="/static/{{username}}/amount_spent_per_day.png" style='height: 100%; width: 55%' /><br>
+    <img src="/static/{{username}}/amount_spent_per_day.png?{{random_integer}}" style='height: 100%; width: 55%' /><br>
 
     <h3>Total amount spent per month</h3><br>
-    <img src="/static/{{username}}/amount_spent_per_month.png" style='height: 100%; width: 55%' /><br>
+    <img src="/static/{{username}}/amount_spent_per_month.png?{{random_integer}}" style='height: 100%; width: 55%' /><br>
 
 
     </div><br>
