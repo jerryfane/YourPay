@@ -3,7 +3,7 @@
 #                                                     #
 #  Questo programma serve a tener conto dei pagamenti #
 #  effettuatti dall'utente. Una specie di conto excel #
-#  dove l'utente potrÃ  interagire tramite Telegram    #
+#  dove l'utente potrÃ  interagire tramite Telegram    #
 #  e tenere sempre aggiornati tutti i suoi conti.     #
 #                                                     #
 #######################################################
@@ -47,13 +47,13 @@ class Account:
         current_object = self.datas[current_key]
         current_object['date'] = date
         current_object['amount'] = amount
-        current_object['account'] = account_name
-        current_object['category'] = category
+        current_object['account'] = account_name.lower().capitalize()
+        current_object['category'] = category.lower().capitalize()
         current_object['comment'] = comment
 
         #Aggiorno il balance del conto utilizzato
-        #quando l'utente usa i soldi del suo account, dovrÃ  inserire un numero positivo
-        #che verrÃ  sottratto dal balance attuale
+        #quando l'utente usa i soldi del suo account, dovrÃ  inserire un numero positivo
+        #che verrÃ  sottratto dal balance attuale
         if change_balance:
             self.accounts[account_name]['balance'] -= amount
         if self.accounts[account_name]['balance'] < 0:
@@ -67,9 +67,13 @@ class Account:
     def get_accounts(self): #Mostra la lista di tutti i conti creati
         accounts_list = []
         for i in self.accounts.keys():
-            print(i, 'Saldo:', self.get_balance(i))
+            #print(i, 'Saldo:', self.get_balance(i))
             x = [i, self.get_balance(i)]
             accounts_list.append(x)
+        return accounts_list
+    
+    def get_accounts_list(self):
+        accounts_list = list(self.accounts.keys())
         return accounts_list
 
     def get_amount_by_category_date(self, category, initial_date):
@@ -88,6 +92,14 @@ class Account:
                 total_spent += self.datas[i]['amount']
         return total_spent
 
+    def get_total_balance(self):
+        accounts = self.get_accounts()
+        total_balance = 0
+        for i in accounts:
+            balance = i[1]
+            total_balance += balance
+        return total_balance
+
     def get_amount_by_month_year(self, month, year):
         total_amount = 0
         for i in self.datas:
@@ -101,7 +113,7 @@ class Account:
     def get_category_list(self):
         category_list = []
         for i in self.datas:
-            category = self.datas[i]['category']
+            category = self.datas[i]['category'].lower().capitalize()
             if category in category_list:
                 pass
             else:

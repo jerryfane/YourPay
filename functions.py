@@ -1,5 +1,7 @@
 import hashlib
 from test import *
+from AESCipher import AESCipher
+import json
 
 #encrypt a string in SHA256
 def encrypt_string(hash_string):
