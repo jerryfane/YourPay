@@ -67,4 +67,4 @@ def send_static(username, filename, random_number):
         return template('./Templates/no_login')
 
 
-run(host='localhost', port=8080)
+run(host='0.0.0.0', port=8080)
