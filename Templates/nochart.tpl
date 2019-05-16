@@ -6,7 +6,7 @@
 </head>
 <body>
 <center>
-  <h2><br><br><br><br><br><br><br><br><br>
+  <h2><br><br><br><br><br><br>
     Create a tailored chart here
   </h2>
 </center>

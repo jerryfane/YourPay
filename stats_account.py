@@ -94,7 +94,8 @@ def statistics(username, random_number):
 @route('/<username>/category', method='POST')
 def category(username):
     chart = request.forms.get('chart').lower().capitalize()
-    category = request.forms.get('category').lower().capitalize()
+    category = str(request.forms.get('category').lower().capitalize())
+    print(category)
 
     account_data = load_account_data(username, False, account_password_cipher[username])
     account_stats = Stats(account_data)
@@ -117,7 +118,8 @@ def category(username):
 @route('/<username>/account', method='POST')
 def account(username):
     chart = request.forms.get('chart').lower().capitalize()
-    account = request.forms.get('account').lower().capitalize()
+    account = str(request.forms.get('account').lower().capitalize())
+    print(account)
 
     account_data = load_account_data(username, False, account_password_cipher[username])
     account_stats = Stats(account_data)

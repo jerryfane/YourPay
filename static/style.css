@@ -119,3 +119,17 @@ a:hover::after {
 a:hover {
   color: green;
 }
+
+.wrapper {
+    position: relative;
+    padding-bottom: 28.125%; /* 16:9 */
+    padding-top: 25px;
+    height: 0;
+}
+.wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}

@@ -18,45 +18,41 @@
     <h3>Create your tailored chart by category</h1><br>
 
     <form action="/{{username}}/category" method="post" target="iframe">
-      <input name="chart" list="charts_category" placeholder="Select the chart" />
-      <input name="category" list="categories" placeholder="Select the category" size="25/" />
-      <datalist id="charts_category">
-        <option value="Amount spent per day">
-        <option value="Amount spent per month">
-      </datalist>
-      <datalist id="categories">
-        % for category in category_list:
-        <option value={{category}}>
-        %end
-      </datalist>
+      <select name="chart" placeholder="Select the chart" />
+        <option value="Amount spent per day">Amount spent per day</option>
+        <option value="Amount spent per month">Amount spent per month</option>
+      </select>
+      <select name="category" placeholder="Select the category" >
+          % for category in category_list:
+          <option value="{{category}}">{{category}}</option>
+          %end
+      </select>
       <input value="Create the chart" type="submit" />
     </form><br>
 
     <h3>Create your tailored chart by account</h1><br>
 
     <form action="/{{username}}/account" method="post" target="iframe">
-      <input name="chart" list="charts_account" placeholder="Select the chart" />
-      <input name="account" list="accounts" placeholder="Select the account" size="25/" />
-      <datalist id="charts_account">
-        <option value="Balance per day">
-        <option value="Balance per month">
-        <option value="Amount spent per day">
-        <option value="Amount spent per month">
-      </datalist>
-      <datalist id="accounts">
+      <select name="chart" placeholder="Select the chart" />
+        <option value="Balance per day">Balance per day</option>
+        <option value="Balance per month">Balance per month</option>
+        <option value="Amount spent per day">Amount spent per day</option>
+        <option value="Amount spent per month">Amount spent per month</option>
+      </select>
+      <select name="account" placeholder="Select the account" />
         % for account in accounts_list:
-        <option value={{account}}>
+        <option value="{{account}}">{{account}}</option>
         %end
-      </datalist>
+      </select>
       <input value="Create the chart" type="submit" />
     </form><br>
 
-    <iframe name="iframe"
-            src="/nochart"
-            width="98%"
-            height="500px"
-            frameBorder="0"
-            scrolling="no"></iframe>
+    <div class="wrapper">
+      <iframe name="iframe"
+              src="/nochart"
+              frameBorder="0"
+              scrolling="no"></iframe>
+    </div>
 
     <h2>More Charts</h2><br>
     <h3>Total balance per day</h3><br>
