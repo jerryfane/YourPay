@@ -1,12 +1,3 @@
-
-#######################################################
-#                                                     #
-#  Questo programma serve a tener conto dei pagamenti #
-#  effettuatti dall'utente. Una specie di conto excel #
-#  dove l'utente potrÃ  interagire tramite Telegram    #
-#  e tenere sempre aggiornati tutti i suoi conti.     #
-#                                                     #
-#######################################################
 import json
 from collections import OrderedDict
 
